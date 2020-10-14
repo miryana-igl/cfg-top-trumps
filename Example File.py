@@ -30,4 +30,3 @@ else:
     print('Draw!')
 
 run()
-blabla
