@@ -1,5 +1,15 @@
 import random
 import requests
+def roll_die():
+    your_roll = input('Type roll to roll a die ')
+    your_choise = random.randint(1, 6)
+    opponent = random.randint(1,6)
+    if your_choise > opponent:
+        print('You go first')
+    else:
+        print('Your opponent goes first')
+print(roll_die())
+
 def random_pokemon ():
     pokemon_number = random.randint(1, 151)
     url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(pokemon_number)
@@ -11,6 +21,7 @@ def random_pokemon ():
         'height': pokemon['height'],
         'weight': pokemon['weight'],
     }
+
 def run ():
     my_pokemon = random_pokemon()
     print('You were given {}'.format(my_pokemon['name']))
