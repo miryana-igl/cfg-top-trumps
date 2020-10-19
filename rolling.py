@@ -4,27 +4,29 @@
 import random
 import re
 
-player = input('Player name: ')
-def roll_die():
+import random
 
+def roll_die():
+    player = input('Player name: ')
+
+    your_choice = random.randint(1, 6)
+    opponent = random.randint(1,6)
 
     while True:
         your_roll = input('Type roll to roll a die ')
         if not re.match('roll', your_roll):
             print("Error, please type roll".format(input = your_roll))
-        continue
+            continue
+        else:
+             #correct input given! we can continue!
+            break
+
+
+
+    print('You rolled', your_choice)
+    print('Opponent rolled', opponent)
+    if your_choice > opponent:
+         print('You go first.')
     else:
-            #correct input given! we can continue!
-        break
-    
-
-your_choice = random.randint(1, 6)
-opponent = random.randint(1,6)
-
-print('You rolled', your_choice)
-print('Opponent rolled', opponent)
-if your_choice > opponent:
-  print('You go first.')
-else:
-  print('{} loses. Opponent goes first.'.format(player))
+        print('{} loses. Opponent goes first.'.format(player))
 roll_die()
