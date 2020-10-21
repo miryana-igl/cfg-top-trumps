@@ -4,10 +4,22 @@ import requests
 import re
 
 #This bit of the code rolls a die and tells you if you go first
+player = input('Player name: ')
+
+def random_pokemon ():
+    pokemon_number = random.randint(1, 151)
+    url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(pokemon_number)
+    response = requests.get(url)
+    pokemon = response.json()
+    return {
+        'name': pokemon['name'],
+        'id': pokemon['id'],
+        'height': pokemon['height'],
+        'weight': pokemon['weight'],
+    }
+
 
 def roll_die():
-    player = input('Player name: ')
-
     your_choice = random.randint(1,6)
     opponent = random.randint(1,6)
 
@@ -24,69 +36,64 @@ def roll_die():
     print('Opponent rolled', opponent)
     if your_choice > opponent:
          print('You go first.')
-
-         my_pokemon = random_pokemon()
-         print('You were given {}'.format(my_pokemon['name']))
-         print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=my_pokemon['name'],
-                                                                                        i=my_pokemon['id'],
-                                                                                        h=my_pokemon['height'],
-                                                                                        w=my_pokemon['weight']))
-
-         stat_choice = input('Which stat do you want to use? (id, height, weight) ')
-
-
-    elif your_choice == opponent:
-        print('Tie! Roll again!'.format(input = your_roll))
-
-
+         my_run()
+    elif your_choice is opponent:
+        print('Tie! Roll again!')
+        roll_die()
     else:
         print('{} loses. Opponent goes first.'.format(player))
-        opponent_pokemon = random_pokemon()
-        print('The opponent got {}'.format(opponent_pokemon['name']))
-        print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
-                                                                                      i=opponent_pokemon['id'],
-                                                                                      h=opponent_pokemon['height'],
-                                                                                      w=opponent_pokemon['weight']))
+        opponent_run()
 
+def opponent_run():
+    opponent_pokemon = random_pokemon()
+    print('The opponent chose {}'.format(opponent_pokemon['name']))
+    print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
+                                                                               i=opponent_pokemon['id'],
+                                                                               h=opponent_pokemon['height'],
+                                                                                w=opponent_pokemon['weight']))
 
- #       random_opponent_stat = random.randint(0, 1, 2)
-  #      if random_opponent_stat == 0:
-   #         stat = 'id'
-   #     elif random_opponent_stat == 1:
-   #         stat = 'height'
-   #     else:
-   #         stat = 'weight'
+    stats_list = ['id', 'height', 'weight']
+    stat_choice = random.choice(stats_list)
+    print("Opponent picked the following stat: {} ".format(opponent_pokemon[stat_choice]))
+    opponent_stat_choice= opponent_pokemon[stat_choice]
 
+    my_pokemon = random_pokemon()
+    print('You were given {}'.format(my_pokemon['name']))
+    print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=my_pokemon['name'],
+                                                                                   i=my_pokemon['id'],
+                                                                                   h=my_pokemon['height'],
+                                                                                   w=my_pokemon['weight']))
+    my_stat = my_pokemon[stat_choice]
 
-def random_pokemon ():
-    pokemon_number = random.randint(1, 151)
-    url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(pokemon_number)
-    response = requests.get(url)
-    pokemon = response.json()
-    return {
-        'name': pokemon['name'],
-        'id': pokemon['id'],
-        'height': pokemon['height'],
-        'weight': pokemon['weight'],
-    }
+    if my_stat > opponent_stat_choice:
+        print('{} Wins!'.format(player))
+    elif my_stat < opponent_stat_choice:
+        print('{} Loses!'.format(player))
+    else:
+        print('Draw!')
 
-
-def run ():
+def my_run ():
     my_pokemon = random_pokemon()
     print('You were given {}'.format(my_pokemon['name']))
     print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n = my_pokemon['name'], i = my_pokemon['id'], h = my_pokemon['height'], w = my_pokemon['weight']))
 
-    stat_choice = input('Which stat do you want to use? (id, height, weight) ')
+    my_stat_choice = input('Which stat do you want to use? (id, height, weight) ')
+
     opponent_pokemon = random_pokemon()
     print('The opponent chose {}'.format(opponent_pokemon['name']))
-    print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n = opponent_pokemon['name'], i = opponent_pokemon['id'], h = opponent_pokemon['height'], w = opponent_pokemon['weight']))
-    my_stat = my_pokemon[stat_choice]
-    opponent_stat = opponent_pokemon[stat_choice]
+    print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
+                                                                                  i=opponent_pokemon['id'],
+                                                                                  h=opponent_pokemon['height'],
+                                                                                  w=opponent_pokemon['weight']))
+    my_stat = my_pokemon[my_stat_choice]
+    opponent_stat = opponent_pokemon[my_stat_choice]
+
     if my_stat > opponent_stat:
-        print('You Win!')
+        print('{} Wins!'.format(player))
     elif my_stat < opponent_stat:
-        print('You Lose!')
+        print('{} Loses!'.format(player))
     else:
         print('Draw!')
+
 roll_die()
-run()
+
