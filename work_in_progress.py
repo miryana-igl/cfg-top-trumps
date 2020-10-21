@@ -3,10 +3,12 @@ import random
 import requests
 import re
 
-#This bit of the code rolls a die and tells you if you go first
+# This bit of the code rolls a die and tells you if you go first
 player = input('Player name: ')
 
-def random_pokemon ():
+print()
+
+def random_pokemon():
     pokemon_number = random.randint(1, 151)
     url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(pokemon_number)
     response = requests.get(url)
@@ -18,52 +20,81 @@ def random_pokemon ():
         'weight': pokemon['weight'],
     }
 
-
 def roll_die():
-    your_choice = random.randint(1,6)
-    opponent = random.randint(1,6)
+    your_choice = random.randint(1, 6)
+
+    print()
+
+    opponent = random.randint(1, 6)
 
     while True:
         your_roll = input('Type roll to roll a die ')
+
         if not re.match('roll', your_roll):
-            print("Error, please type roll".format(input = your_roll))
+            print("Error, please type roll".format(input=your_roll))
             continue
         else:
-             #correct input given! we can continue!
+            # correct input given! we can continue!
             break
 
+    print()
+
     print('You rolled', your_choice)
+
+    print()
+
+
     print('Opponent rolled', opponent)
+
+    print()
+
     if your_choice > opponent:
-         print('You go first.')
-         my_run()
+        print('You go first.')
+        print()
+        my_run()
     elif your_choice is opponent:
         print('Tie! Roll again!')
+        print()
         roll_die()
     else:
         print('{} loses. Opponent goes first.'.format(player))
+        print()
         opponent_run()
 
+print()
+
+
 def opponent_run():
+
+    print()
+
     opponent_pokemon = random_pokemon()
     print('The opponent chose {}'.format(opponent_pokemon['name']))
     print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
-                                                                               i=opponent_pokemon['id'],
-                                                                               h=opponent_pokemon['height'],
-                                                                                w=opponent_pokemon['weight']))
+                                                                                  i=opponent_pokemon['id'],
+                                                                                  h=opponent_pokemon['height'],
+                                                                                  w=opponent_pokemon['weight']))
 
     stats_list = ['id', 'height', 'weight']
     stat_choice = random.choice(stats_list)
+
+    print()
+
     print("Opponent picked the following stat: {} ".format(opponent_pokemon[stat_choice]))
-    opponent_stat_choice= opponent_pokemon[stat_choice]
+    opponent_stat_choice = opponent_pokemon[stat_choice]
+
+    print()
 
     my_pokemon = random_pokemon()
     print('You were given {}'.format(my_pokemon['name']))
+
     print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=my_pokemon['name'],
                                                                                    i=my_pokemon['id'],
                                                                                    h=my_pokemon['height'],
                                                                                    w=my_pokemon['weight']))
     my_stat = my_pokemon[stat_choice]
+
+    print()
 
     if my_stat > opponent_stat_choice:
         print('{} Wins!'.format(player))
@@ -72,12 +103,18 @@ def opponent_run():
     else:
         print('Draw!')
 
-def my_run ():
+print()
+
+def my_run():
     my_pokemon = random_pokemon()
     print('You were given {}'.format(my_pokemon['name']))
-    print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n = my_pokemon['name'], i = my_pokemon['id'], h = my_pokemon['height'], w = my_pokemon['weight']))
+    print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=my_pokemon['name'], i=my_pokemon['id'], h=my_pokemon['height'], w=my_pokemon['weight']))
+
+    print()
 
     my_stat_choice = input('Which stat do you want to use? (id, height, weight) ')
+
+    print()
 
     opponent_pokemon = random_pokemon()
     print('The opponent chose {}'.format(opponent_pokemon['name']))
@@ -88,6 +125,8 @@ def my_run ():
     my_stat = my_pokemon[my_stat_choice]
     opponent_stat = opponent_pokemon[my_stat_choice]
 
+    print()
+
     if my_stat > opponent_stat:
         print('{} Wins!'.format(player))
     elif my_stat < opponent_stat:
@@ -95,5 +134,5 @@ def my_run ():
     else:
         print('Draw!')
 
-roll_die()
 
+roll_die()
