@@ -8,8 +8,8 @@ import re
 def roll_die():
     player = input('Player name: ')
 
-    your_choice = random.randint(1,2)
-    opponent = random.randint(1,2)
+    your_choice = random.randint(1,6)
+    opponent = random.randint(1,6)
 
     while True:
         your_roll = input('Type roll to roll a die ')
@@ -20,23 +20,43 @@ def roll_die():
              #correct input given! we can continue!
             break
 
-
-
     print('You rolled', your_choice)
     print('Opponent rolled', opponent)
     if your_choice > opponent:
          print('You go first.')
-    elif your_choice is opponent:
-        print('Tie! Roll again!')
+
+         my_pokemon = random_pokemon()
+         print('You were given {}'.format(my_pokemon['name']))
+         print('The {n} stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=my_pokemon['name'],
+                                                                                        i=my_pokemon['id'],
+                                                                                        h=my_pokemon['height'],
+                                                                                        w=my_pokemon['weight']))
+
+         stat_choice = input('Which stat do you want to use? (id, height, weight) ')
 
 
+    elif your_choice == opponent:
+        print('Tie! Roll again!'.format(input = your_roll))
 
 
     else:
         print('{} loses. Opponent goes first.'.format(player))
+        opponent_pokemon = random_pokemon()
+        print('The opponent got {}'.format(opponent_pokemon['name']))
+        print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
+                                                                                      i=opponent_pokemon['id'],
+                                                                                      h=opponent_pokemon['height'],
+                                                                                      w=opponent_pokemon['weight']))
 
 
-#This bit of the code gets a random number and assigns the Pokemon to the player and the opponent
+ #       random_opponent_stat = random.randint(0, 1, 2)
+  #      if random_opponent_stat == 0:
+   #         stat = 'id'
+   #     elif random_opponent_stat == 1:
+   #         stat = 'height'
+   #     else:
+   #         stat = 'weight'
+
 
 def random_pokemon ():
     pokemon_number = random.randint(1, 151)
@@ -49,6 +69,7 @@ def random_pokemon ():
         'height': pokemon['height'],
         'weight': pokemon['weight'],
     }
+
 
 def run ():
     my_pokemon = random_pokemon()
@@ -67,7 +88,5 @@ def run ():
         print('You Lose!')
     else:
         print('Draw!')
-
-
 roll_die()
 run()
