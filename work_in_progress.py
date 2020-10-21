@@ -114,6 +114,13 @@ def opponent_run():
     else:
         print('ITS A DRAW! Re-Match!')
         roll_die()
+    while True:
+        roll_again = input('would you like to play again? (y/n)')
+        if re.match('y', roll_again):
+            roll_die()
+        else:
+            print("Thanks for playing!".format(input = roll_die))
+            break
 
 print()
 
@@ -148,8 +155,14 @@ def my_run():
         print('{} LOSES!'.format(player))
     else:
         print('ITS A DRAW! Re-Match!')
-        roll_die()
 
+    while True:
+        roll_again = input('would you like to play again? (y/n)')
+        if re.match('y', roll_again):
+            roll_die()
+        else:
+            print("Thanks for playing!".format(input = roll_die))
+            break
 
 
 

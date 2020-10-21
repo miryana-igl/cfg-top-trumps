@@ -1,15 +1,12 @@
-# The modules used in our code
+
 import random
 import requests
 import re
 
-
+# This bit of the code rolls a die and tells you if you go first
 player = input('Hello. Please enter in your name: ')
 
 print()
-
-# We started by introducing the Random Pokemon function which picks a random number and pulls the corresponding Pokemon
-# off of the PokeAPI, pulling only the Name, ID, Height and Weight stats of the Pokemon.
 
 def random_pokemon():
     pokemon_number = random.randint(1, 151)
@@ -22,9 +19,6 @@ def random_pokemon():
         'height': pokemon['height'],
         'weight': pokemon['weight'],
     }
-# We added a game of chance as a fun way to beguin our top trumps game.
-# You and the opponent role dice to find out who will go first.
-# Whoever wins, gets to see their Pokemon stats and decides which stat they want to use.
 
 def roll_die():
     your_choice = random.randint(1, 6)
@@ -50,7 +44,7 @@ def roll_die():
     print()
 
 
-    print('Opponent rolled', opponent)
+    print('Your opponent rolled', opponent)
 
     print()
 
@@ -59,28 +53,23 @@ def roll_die():
         print()
         my_run()
     elif your_choice is opponent:
-        print('Tie! Roll again!')
+        print('Its a tie! Please Roll again!')
         print()
         roll_die()
     else:
-        print('{} loses. Opponent goes first.'.format(player))
+        print('{} loses. Your opponent goes first.'.format(player))
         print()
         opponent_run()
 
 print()
 
-# One of the challenges was figuring out how to make the opponent run first if they've won the dice game
-# The hardest bit was figuring out how to randomise their stat pick.
-# Initially we thought about assigning a boolean value to the individual stat metrics, however this proved to be tricky
-# so we ended up listing them under stat_list and pulling a random list item. A problem with this is that we don't get
-# the stat string attached to the value, so we only know about the number assigned to that stat.
 
 def opponent_run():
 
     print()
 
     opponent_pokemon = random_pokemon()
-    print('The opponent chose {}'.format(opponent_pokemon['name']))
+    print('Your opponent chose {}'.format(opponent_pokemon['name']))
     print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
                                                                                   i=opponent_pokemon['id'],
                                                                                   h=opponent_pokemon['height'],
@@ -91,7 +80,7 @@ def opponent_run():
 
     print()
 
-    print("Opponent picked the following stat: {} ".format(opponent_pokemon[stat_choice]))
+    print("Your opponent picked the following stat: {} ".format(opponent_pokemon[stat_choice]))
     opponent_stat_choice = opponent_pokemon[stat_choice]
 
     print()
@@ -112,13 +101,9 @@ def opponent_run():
     elif my_stat < opponent_stat_choice:
         print('{} LOSES!'.format(player))
     else:
-        print('ITS A DRAW! Re-Match!')
-        roll_die()
+        print('ITS A DRAW! ')
 
 print()
-
-# My_run is the function that is executed if the player wins the dice roll.
-# You get to see your Pokemon stats, which gives you the advantage of choosing a good stat to fight with.
 
 def my_run():
     my_pokemon = random_pokemon()
@@ -132,7 +117,7 @@ def my_run():
     print()
 
     opponent_pokemon = random_pokemon()
-    print('The opponent chose {}'.format(opponent_pokemon['name']))
+    print('Your opponent chose {}'.format(opponent_pokemon['name']))
     print('{n}''s stats are: \nID number: {i} \nHeight: {h} \nWeight: {w}'.format(n=opponent_pokemon['name'],
                                                                                   i=opponent_pokemon['id'],
                                                                                   h=opponent_pokemon['height'],
@@ -143,14 +128,19 @@ def my_run():
     print()
 
     if my_stat > opponent_stat:
-        print('{} WINS!'.format(player))
+        print('{} Wins!'.format(player))
     elif my_stat < opponent_stat:
-        print('{} LOSES!'.format(player))
+        print('{} Loses!'.format(player))
     else:
-        print('ITS A DRAW! Re-Match!')
-        roll_die()
+        print('Draw!')
 
-
+    while True:
+        roll_again = input('would you like to play again? (y/n)')
+        if re.match('y', roll_again):
+            roll_die()
+        else:
+            print("Thanks for playing!".format(input = roll_die))
+            break
 
 
 roll_die()
