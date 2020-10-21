@@ -1,12 +1,15 @@
-
+# The modules used in our code
 import random
 import requests
 import re
 
-# This bit of the code rolls a die and tells you if you go first
+
 player = input('Player name: ')
 
 print()
+
+# We started by introducing the Random Pokemon function which picks a random number and pulls the corresponding Pokemon
+# off of the PokeAPI, pulling only the Name, ID, Height and Weight stats of the Pokemon.
 
 def random_pokemon():
     pokemon_number = random.randint(1, 151)
@@ -19,6 +22,9 @@ def random_pokemon():
         'height': pokemon['height'],
         'weight': pokemon['weight'],
     }
+# We added a game of chance as a fun way to beguin our top trumps game.
+# You and the opponent role dice to find out who will go first.
+# Whoever wins, gets to see their Pokemon stats and decides which stat they want to use.
 
 def roll_die():
     your_choice = random.randint(1, 6)
@@ -63,6 +69,11 @@ def roll_die():
 
 print()
 
+# One of the challenges was figuring out how to make the opponent run first if they've won the dice game
+# The hardest bit was figuring out how to randomise their stat pick.
+# Initially we thought about assigning a boolean value to the individual stat metrics, however this proved to be tricky
+# so we ended up listing them under stat_list and pulling a random list item. A problem with this is that we don't get
+# the stat string attached to the value, so we only know about the number assigned to that stat.
 
 def opponent_run():
 
@@ -97,13 +108,17 @@ def opponent_run():
     print()
 
     if my_stat > opponent_stat_choice:
-        print('{} Wins!'.format(player))
+        print('{} wins!'.format(player))
     elif my_stat < opponent_stat_choice:
-        print('{} Loses!'.format(player))
+        print('{} loses!'.format(player))
     else:
-        print('Draw!')
+        print('Draw! Re-match!')
+        roll_die()
 
 print()
+
+# My_run is the function that is executed if the player wins the dice roll.
+# You get to see your Pokemon stats, which gives you the advantage of choosing a good stat to fight with. 
 
 def my_run():
     my_pokemon = random_pokemon()
