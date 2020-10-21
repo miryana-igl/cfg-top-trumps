@@ -4,7 +4,7 @@ import requests
 import re
 
 
-player = input('Player name: ')
+player = input('Hello. Please enter in your name: ')
 
 print()
 
@@ -34,7 +34,7 @@ def roll_die():
     opponent = random.randint(1, 6)
 
     while True:
-        your_roll = input('Type roll to roll a die ')
+        your_roll = input('Feeling lucky? Type roll to roll the die ')
 
         if not re.match('roll', your_roll):
             print("Error, please type roll".format(input=your_roll))
@@ -108,17 +108,17 @@ def opponent_run():
     print()
 
     if my_stat > opponent_stat_choice:
-        print('{} wins!'.format(player))
+        print('{} WINS!'.format(player))
     elif my_stat < opponent_stat_choice:
-        print('{} loses!'.format(player))
+        print('{} LOSES!'.format(player))
     else:
-        print('Draw! Re-match!')
+        print('ITS A DRAW! Re-Match!')
         roll_die()
 
 print()
 
 # My_run is the function that is executed if the player wins the dice roll.
-# You get to see your Pokemon stats, which gives you the advantage of choosing a good stat to fight with. 
+# You get to see your Pokemon stats, which gives you the advantage of choosing a good stat to fight with.
 
 def my_run():
     my_pokemon = random_pokemon()
@@ -143,11 +143,12 @@ def my_run():
     print()
 
     if my_stat > opponent_stat:
-        print('{} Wins!'.format(player))
+        print('{} WINS!'.format(player))
     elif my_stat < opponent_stat:
-        print('{} Loses!'.format(player))
+        print('{} LOSES!'.format(player))
     else:
-        print('Draw!')
+        print('ITS A DRAW! Re-Match!')
+        roll_die()
 
 
 roll_die()
