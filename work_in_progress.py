@@ -22,8 +22,8 @@ def random_pokemon():
         'height': pokemon['height'],
         'weight': pokemon['weight'],
     }
-# We added a game of chance as a fun way to beguin our top trumps game.
-# You and the opponent role dice to find out who will go first.
+# We added a game of chance as a fun way to begin our top trumps game.
+# You and the opponent roll dice to find out who will go first.
 # Whoever wins, gets to see their Pokemon stats and decides which stat they want to use.
 
 def roll_die():

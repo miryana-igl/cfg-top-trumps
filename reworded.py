@@ -128,11 +128,11 @@ def my_run():
     print()
 
     if my_stat > opponent_stat:
-        print('{} Wins!'.format(player))
+        print('{} WINS!'.format(player))
     elif my_stat < opponent_stat:
-        print('{} Loses!'.format(player))
+        print('{} LOSES!'.format(player))
     else:
-        print('Draw!')
+        print('ITS A DRAW!')
 
 
 roll_die()
