@@ -134,5 +134,13 @@ def my_run():
     else:
         print('ITS A DRAW!')
 
+    while True:
+        roll_again = input('would you like to play again? (y/n)')
+        if re.match('y', roll_again):
+            roll_die()
+        else:
+            print("Thanks for playing!".format(input = roll_die))
+            break
+
 
 roll_die()
